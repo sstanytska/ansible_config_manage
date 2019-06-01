@@ -41,4 +41,10 @@
       become: yes
       become_method: sudo
       ignore_errors: true
-      
+
+    - name: Restart httpd
+      systemd:
+        name: httpd
+        enabled: yes
+      become: yes
+      become_method: sudo
