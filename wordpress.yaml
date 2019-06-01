@@ -1,0 +1,24 @@
+---
+- name: Installs wordpress
+  hosts: all
+  become: yes
+  become_method: sudo
+  gather_facts: no
+  ignore_errors: true
+  connection: ssh
+  tasks:
+    - name: Install necessary package
+      package:
+        name: "{{item}}"
+        state: latest
+      with_items: 
+        - wget 
+        - unzip 
+        - php-gb
+        - httpd 
+        - mysql
+        - mariadb-server
+        - php 
+        - php-mysql 
+        - php-fpm 
+      ignore_errors: true
