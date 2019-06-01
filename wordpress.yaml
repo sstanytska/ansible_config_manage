@@ -2,50 +2,49 @@
 - name: Installs wordpress
   hosts: localhost
   become: yes
-  become_method: sudo
-  gather_facts: no
-  ignore_errors: true
+  become_method: sudo 
+  gather_facts: no 
   connection: ssh
   tasks:
-    - name: Install necessary package
-      package:
+    - name: Install necessary packages
+      package: 
         name: "{{item}}"
         state: latest
-      with_items: 
-        - wget 
-        - unzip 
-        - php-gb
-        - httpd 
+      with_items:
+        - wget
+        - unzip
+        - php-gd
+        - httpd
         - mysql
         - mariadb-server
         - php 
-        - php-mysql 
-        - php-fpm 
+        - php-mysql
+        - php-fpm
       ignore_errors: true
 
-    - name: Download 1 package
-      get_url: 
+    - name: Download wordpress package
+      get_url:
         url: "https://wordpress.org/latest.tar.gz"
         dest: /tmp/
 
     - name: Unzip wordpress file
-      unarchive: 
+      unarchive:
         src: "/tmp/wordpress-5.2.1.tar.gz"
         dest: /var/www/html/
         remote_src: yes
       become: yes
-      become_method: sudo 
-
+      become_method: sudo
 
     - name: Move files to html folder
-      shell: "mv /var/www/html/wordpress/* /var/www/html"
+      shell: "mv /var/www/html/wordpress/*  /var/www/html/"
       become: yes
       become_method: sudo
-      ignore_errors: true
-
-    - name: Restart httpd
+      ignore_errors: yes
+      
+    - name: Restart httpd 
       systemd:
         name: httpd
+        state: started
         enabled: yes
       become: yes
       become_method: sudo
