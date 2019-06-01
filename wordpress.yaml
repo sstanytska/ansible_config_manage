@@ -1,7 +1,7 @@
 ---
 - name: Installs wordpress
-  hosts: all
-  become: yes
+  hosts: localhost
+  local i become: yes
   become_method: sudo
   gather_facts: no
   ignore_errors: true
