@@ -34,3 +34,11 @@
         dest: /var/www/html/
       become: yes
       become_method: sudo 
+
+
+    - name: Move files to html folder
+      shell: "mv /var/www/html/wordpress/* /var/www/html"
+      become: yes
+      become_method: sudo
+      ignore_errors: true
+      
