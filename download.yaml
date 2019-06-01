@@ -1,0 +1,8 @@
+---
+- name: Helps to download files
+  hosts: all
+  tasks: 
+   - name: Download 1 package
+     get_url:
+       url: ""
+       dest: /tmp/
