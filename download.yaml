@@ -1,14 +1,21 @@
 ---
-- name: Helps to download files
-  hosts: localhost
-  become: yes
-  become_method: sudo 
+- name: Helps to download file
+  
   vars_prompt:
     - name: URL
       prompt: "Give me the url: "
-      private: no    # shows what user typping
-  tasks: 
-   - name: Download 1 package
-     get_url:
-       url: "{{URL}}"   # this is variable
-       dest: "{{DESTINATION}}"
+      private: no
+    - name: DESTINATION
+      prompt: "Give me the location to put: "
+      private: no
+    - name: HOST
+      promt: "Which HOST?"
+      private: no 
+  hosts: "{{HOST}}"
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Download 1 package
+      get_url:
+        url: "{{URL}}"
+        dest: "{{DESTINATION}}"
